@@ -1,0 +1,101 @@
+/* ===== PIXEL RALLY 8 — 复古街机样式 ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:100%; height:100%; overflow:hidden; background:#000; }
+body {
+  font-family:'Press Start 2P', 'Courier New', monospace;
+  color:#fff; user-select:none; -webkit-user-select:none;
+}
+#stage { position:relative; width:100vw; height:100vh; }
+#c { position:absolute; image-rendering:pixelated; image-rendering:crisp-edges; background:#000; }
+
+/* CRT 扫描线 + 暗角 */
+#scanlines { position:absolute; inset:0; pointer-events:none; z-index:5;
+  background:repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px); }
+#vignette { position:absolute; inset:0; pointer-events:none; z-index:5;
+  background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.45) 100%); }
+
+.hidden { display:none !important; }
+.dim { color:#9a9aa5; font-size:8px; line-height:1.7; }
+.small { font-size:8px; }
+.dim.small { margin-top:10px; }
+
+/* ===== HUD ===== */
+#hud { position:absolute; inset:0; pointer-events:none; z-index:8;
+  text-shadow:2px 2px 0 #000; font-size:10px; }
+#hud-tl { position:absolute; top:14px; left:14px; }
+.bar-row { display:flex; align-items:center; margin-bottom:6px; }
+.bar-label { width:44px; font-size:9px; }
+.bar { width:150px; height:13px; border:2px solid #fff; background:#1a1a22; }
+.bar.slim { height:8px; }
+.fill { height:100%; width:100%; transition:width .15s linear; }
+.fill.fuel { background:#f9a825; }
+.fill.fuel.low { background:#e53935; animation:blink .5s steps(2) infinite; }
+.fill.body { background:#43a047; }
+.fill.body.low { background:#e53935; animation:blink .5s steps(2) infinite; }
+.fill.wt { background:#8d9eae; }
+.cargo { margin-left:8px; color:#ffb74d; font-size:8px; }
+#hud-tr { position:absolute; top:14px; right:14px; text-align:right; line-height:2; }
+#hud-coins { color:#ffd54f; }
+#hud-best { color:#9a9aa5; font-size:8px; }
+#hud-br { position:absolute; right:18px; bottom:16px; }
+#hud-speed { font-size:30px; }
+#hud-br .unit { font-size:9px; margin-left:6px; color:#9a9aa5; }
+#hud-bl { position:absolute; left:14px; bottom:16px; line-height:2; font-size:9px; }
+#hud-cam { color:#9a9aa5; font-size:8px; }
+#hud-gas { position:absolute; top:60px; left:50%; transform:translateX(-50%);
+  color:#ff5252; font-size:10px; }
+#gas-arrow { display:inline-block; margin-right:6px; }
+#hud-msg { position:absolute; top:26%; width:100%; text-align:center;
+  font-size:14px; color:#ff5252; }
+#hud-banner { position:absolute; top:42%; width:100%; text-align:center;
+  font-size:18px; color:#ffd54f; letter-spacing:2px; }
+#hud-count { position:absolute; top:28%; width:100%; text-align:center;
+  font-size:48px; color:#ffd54f; }
+@keyframes blink { 50% { opacity:.25; } }
+.blink { animation:blink 1s steps(2) infinite; }
+
+/* ===== 屏幕/面板 ===== */
+.screen { position:absolute; inset:0; z-index:10; display:flex;
+  flex-direction:column; align-items:center; justify-content:center;
+  background:rgba(8,8,16,.78); text-align:center; }
+.logo { font-size:44px; line-height:1.25; color:#ffd54f;
+  text-shadow:4px 4px 0 #d32f2f, 8px 8px 0 #4a148c; letter-spacing:4px; }
+.logo8 { color:#4dd0e1; }
+.subtitle { margin-top:18px; font-size:10px; color:#9a9aa5; }
+#title-press { margin-top:34px; font-size:12px; color:#fff; }
+.help { margin-top:26px; font-size:8px; color:#9a9aa5; line-height:2.1; }
+.best { margin-top:14px; font-size:9px; color:#ffd54f; }
+
+.panel { background:#14141f; border:4px solid #fff; padding:26px 34px;
+  box-shadow:0 0 0 4px #000, 10px 10px 0 4px rgba(0,0,0,.5);
+  max-width:640px; max-height:92vh; overflow:auto; }
+.panel-title { font-size:16px; color:#ffd54f; margin-bottom:16px; letter-spacing:3px; }
+.coins { color:#ffd54f; font-size:11px; margin-bottom:10px; }
+.sec-title { font-size:10px; margin:14px 0 8px; color:#4dd0e1; text-align:left; }
+
+#paint-row { display:flex; gap:8px; justify-content:flex-start; }
+.swatch { width:26px; height:26px; border:3px solid #444; cursor:pointer; }
+.swatch.sel { border-color:#fff; box-shadow:0 0 0 2px #ffd54f; }
+
+.upg-row { display:flex; align-items:center; gap:10px; margin-bottom:8px;
+  font-size:9px; text-align:left; }
+.upg-name { width:110px; }
+.upg-pips { width:90px; letter-spacing:2px; color:#ffd54f; }
+.upg-info { width:190px; color:#9a9aa5; font-size:8px; line-height:1.5; }
+.upg-buy { min-width:86px; }
+#garage-stats { margin-top:10px; text-align:left; }
+
+.btn { font-family:inherit; font-size:10px; background:#263238; color:#fff;
+  border:3px solid #fff; padding:10px 16px; cursor:pointer; letter-spacing:1px; }
+.btn:hover:not(:disabled) { background:#fff; color:#000; }
+.btn:disabled { opacity:.35; cursor:default; }
+.btn.big { font-size:13px; background:#1b5e20; }
+.btn.big:hover { background:#43a047; color:#000; }
+.btn-row { display:flex; gap:12px; margin-top:18px; justify-content:center; }
+.btn-row.col { flex-direction:column; align-items:center; }
+.stats { font-size:10px; line-height:2.2; margin:8px 0 4px; }
+.stats .hi { color:#ffd54f; }
+
+#fps { position:absolute; left:8px; top:4px; z-index:20; font-size:8px;
+  color:#0f0; opacity:.7; text-shadow:1px 1px #000; }
+#pad-ind { position:absolute; right:10px; top:4px; z-index:20; font-size:8px; color:#4dd0e1; }

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIXEL RALLY 8 — 8位像素拉力</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="c"></canvas>
+  <div id="scanlines"></div>
+  <div id="vignette"></div>
+
+  <!-- ===== HUD ===== -->
+  <div id="hud" class="hidden">
+    <div id="hud-tl">
+      <div class="bar-row"><span class="bar-label">FUEL</span>
+        <div class="bar"><div id="bar-fuel" class="fill fuel"></div></div></div>
+      <div class="bar-row"><span class="bar-label">BODY</span>
+        <div class="bar"><div id="bar-body" class="fill body"></div></div></div>
+      <div class="bar-row"><span class="bar-label">WT</span>
+        <div class="bar slim"><div id="bar-wt" class="fill wt"></div></div>
+        <span id="hud-cargo" class="cargo"></span></div>
+    </div>
+    <div id="hud-tr">
+      <div id="hud-coins">COIN 0</div>
+      <div id="hud-dist">0 m</div>
+      <div id="hud-best">BEST 0 m</div>
+    </div>
+    <div id="hud-br"><span id="hud-speed">0</span><span class="unit">km/h</span></div>
+    <div id="hud-bl">
+      <div id="hud-biome">荒漠 DESERT</div>
+      <div id="hud-cam">CAM-1 [C]切换</div>
+    </div>
+    <div id="hud-gas" class="hidden"><span id="gas-arrow">▲</span><span id="gas-text">GAS 0m</span></div>
+    <div id="hud-msg"></div>
+    <div id="hud-banner" class="hidden"></div>
+    <div id="hud-count" class="hidden"></div>
+  </div>
+
+  <!-- ===== 标题 ===== -->
+  <div id="screen-title" class="screen">
+    <div class="logo">PIXEL<br>RALLY <span class="logo8">8</span></div>
+    <div class="subtitle">8-BIT 像素拉力 · 燃油与耐久的生存竞速</div>
+    <div class="blink" id="title-press">— 按 ENTER 或 点击 开始 —</div>
+    <div class="help">
+      ↑↓←→ / WASD 驾驶 · SPACE 漂移 · C 视角 · 滚轮 缩放 · P 暂停<br>
+      支持手柄:左摇杆转向 · RT 油门 · LT 刹车 · X/B 漂移 · Y 视角
+    </div>
+    <div id="title-best" class="best"></div>
+  </div>
+
+  <!-- ===== 车库(涂装+升级) ===== -->
+  <div id="screen-garage" class="screen hidden">
+    <div class="panel garage">
+      <div class="panel-title">车 库 GARAGE</div>
+      <div id="garage-coins" class="coins">COIN 0</div>
+      <div class="sec-title">涂装 PAINT</div>
+      <div id="paint-row"></div>
+      <div class="sec-title">升级 UPGRADES <span class="dim">(升级会增加车重 WT,影响加速与油耗)</span></div>
+      <div id="upg-list"></div>
+      <div id="garage-stats" class="dim"></div>
+      <div class="btn-row">
+        <button id="btn-start" class="btn big">▶ 出发 START RUN</button>
+      </div>
+      <div class="dim small">提示:油量和耐久有限 — 留意路边加油站;木箱货物 CARGO 会加重车身,送到加油站可换金币;油量少时跟随 ⛽ 箭头寻找隐藏加油站。</div>
+    </div>
+  </div>
+
+  <!-- ===== 暂停 ===== -->
+  <div id="screen-pause" class="screen hidden">
+    <div class="panel">
+      <div class="panel-title">暂 停 PAUSED</div>
+      <div class="btn-row col">
+        <button id="btn-resume" class="btn">继续 RESUME</button>
+        <button id="btn-restart" class="btn">重开 RESTART</button>
+        <button id="btn-music" class="btn">音乐 MUSIC: ON</button>
+        <button id="btn-quit" class="btn">回车库 GARAGE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 结算 ===== -->
+  <div id="screen-over" class="screen hidden">
+    <div class="panel">
+      <div class="panel-title" id="over-title">GAME OVER</div>
+      <div id="over-stats" class="stats"></div>
+      <div class="btn-row col">
+        <button id="btn-retry" class="btn big">再来一次 RETRY</button>
+        <button id="btn-garage" class="btn">回车库 GARAGE</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="fps"></div>
+  <div id="pad-ind" class="hidden">🎮 手柄已连接</div>
+</div>
+
+<script src="lib/three.min.js"></script>
+<script src="js/textures.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/input.js"></script>
+<script src="js/world.js"></script>
+<script src="js/car.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
